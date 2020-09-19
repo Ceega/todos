@@ -1,4 +1,4 @@
-(ns clojurescript-start-for-browser.core
+(ns todos.core
   (:require [reagent.dom :as rdom]))
 
 (defn main-view []
