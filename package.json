@@ -1,0 +1,22 @@
+{
+  "name": "clojurescript-start-for-browser",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "shadow-cljs": "2.11.4",
+    "concurrently": "5.3.0",
+    "node-sass": "4.14.1"
+  },
+  "dependencies": {
+    "react": "16.13.0",
+    "react-dom": "16.13.0"
+  },
+  "scripts": {
+    "sass": "node-sass --output-style compressed scss/style.scss public/css/style.css",
+    "sass:watch": "npm run sass && node-sass -w --output-style compressed scss/style.scss public/css/style.css",
+    "cljs": "shadow-cljs compile app",
+    "cljs:watch": "shadow-cljs watch app",
+    "dev": "concurrently \"npm:sass:watch\" \"npm:cljs:watch\"",
+    "prod": "npm run sass && shadow-cljs release app"
+  }
+}
