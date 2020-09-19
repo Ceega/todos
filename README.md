@@ -1,24 +1,7 @@
-# Clojurescript start for browser
+# Todos
 
-A starting point for a Clojurescript project (browser). This repository can be
-used as a template for a new project.
-
-## Getting started with this template
-
-Before forking this repository, it's best to update the template itself
-(updating the dependencies is a good start) and test that everything still
-works.
-
-After forking it's best to do the following steps to transform this template
-into a custom project:
-
- * Edit [public/index.html](public/index.html) (title, lang, viewport, etc).
- * Move and rename clojurescript-start-for-browser.core namespace to something
-   more suitable.
- * Edit or remove the styles in [scss/style.scss](scss/style.scss).
- * Add [Re-frame](https://github.com/day8/re-frame) to project.
- * Add favicons.
- * Finally delete this section from this README :)
+A traditional TodoMVC application to be used during Clojurescript, Reagent and
+Re-frame training sessions.
 
 ## Development
 
