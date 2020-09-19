@@ -1,3 +1,7 @@
+$text-color: #4d4d4d;
+$text-font-size: 1.4rem;
+$border-color: #e3e3e3;
+
 * {
     margin: 0;
     padding: 0;
@@ -7,6 +11,80 @@
 #root {
     display: flex;
     justify-content: center;
-    align-items: center;
     min-height: 100vh;
+    background: #f5f5f5;
+}
+
+.main {
+    flex: 1 0 0px;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    min-width: 250px;
+    max-width: 550px;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0 0.5rem 0;
+}
+
+.header__text {
+    color: rgba(175, 47, 47, 0.15);
+    font-weight: normal;
+    font-size: 6rem;
+}
+
+.controls-and-todos {
+    border: 1px solid $border-color;
+    border-bottom: 1px solid darken($border-color, 10%);
+    box-shadow: 0 5px 15px 0px #d1d1d1;
+}
+
+.top-controls {
+    display: flex;
+    border-bottom: 1px solid $border-color;
+    background: #fff;
+}
+
+.top-controls__new-todo {
+    flex: 1 0 0px;
+    padding: 18px 10px 18px 60px;
+    color: $text-color;
+    font-size: $text-font-size;
+    border: none;
+    outline: none;
+}
+
+.top-controls__new-todo::placeholder {
+    color: lighten($text-color, 55%);
+    font-style: italic;
+}
+
+.todos-list {
+    margin-top: 2px;
+    background: #fff;
+}
+
+.todo {
+    border-bottom: 1px solid $border-color;
+    font-size: $text-font-size;
+    color: $text-color;
+    list-style-type: none;
+    padding: 17px 25px 17px 60px;
+}
+
+.footer {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.footer__row {
+    font-size: 0.7rem;
+    color: lighten($text-color, 40%);
+}
+
+.footer__row:not(:last-child) {
+    margin-bottom: 7px;
 }
