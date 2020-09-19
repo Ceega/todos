@@ -1,6 +1,7 @@
 $text-color: #4d4d4d;
 $text-font-size: 1.4rem;
 $border-color: #e3e3e3;
+$warning-color: #fa7f7f;
 
 * {
     margin: 0;
@@ -66,11 +67,33 @@ $border-color: #e3e3e3;
 }
 
 .todo {
+    display: flex;
     border-bottom: 1px solid $border-color;
-    font-size: $text-font-size;
-    color: $text-color;
     list-style-type: none;
     padding: 17px 25px 17px 60px;
+}
+
+.todo__label {
+    flex: 1 0 0px;
+    font-size: $text-font-size;
+    color: $text-color;
+}
+
+.todo__delete-button {
+    font-size: 1.2rem;
+    color: $warning-color;
+    display: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.todo:hover .todo__delete-button {
+    display: inline-block;
+}
+
+.todo__delete-button:hover {
+    color: darken($warning-color, 10%);
 }
 
 .bottom-controls {

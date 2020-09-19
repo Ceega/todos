@@ -16,3 +16,9 @@
 
      clear-new-todo?
      (dissoc :new-todo))))
+
+(rf/reg-event-db
+ :delete-todo
+ (fn [db [_ idx]]
+   (update db :todos #(vec (concat (subvec % 0 idx)
+                                   (subvec % (inc idx)))))))

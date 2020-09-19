@@ -1,5 +1,6 @@
 (ns todos.views
-  (:require [re-frame.core :as rf]
+  (:require [clojure.string :as str]
+            [re-frame.core :as rf]
             [todos.events]
             [todos.subs]))
 
@@ -10,7 +11,9 @@
     :value v
     :on-change #(when on-change
                   (on-change (-> % .-target .-value)))
-    :on-key-down #(when (and on-enter (= (.-keyCode %) 13))
+    :on-key-down #(when (and on-enter
+                           (= (.-keyCode %) 13)
+                           (-> v str/blank? not))
                     (on-enter v))
     :placeholder placeholder
     :autoFocus true}])
@@ -23,8 +26,12 @@
                      :on-enter #(rf/dispatch [:add-todo % true])
                      :placeholder "What needs to be done?"}]])
 
-(defn todo-view [{:keys [v completed?]}]
-  [:li.todo v])
+(defn todo-view [{:keys [key v completed?]}]
+  [:li.todo
+   [:label.todo__label v]
+   [:button.todo__delete-button
+    {:on-click #(rf/dispatch [:delete-todo key])}
+    "✕"]])
 
 (defn todos-list-view [{:keys [todos]}]
   [:ul.todos-list
