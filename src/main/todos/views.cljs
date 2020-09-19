@@ -31,6 +31,15 @@
    (for [[idx todo] (map-indexed vector todos)]
      [todo-view (assoc todo :key idx)])])
 
+(defn bottom-controls-view [{:keys [todos]}]
+  (let [todo-count (->> todos
+                        (filter #(-> % :completed? false?))
+                        count)]
+    [:div.bottom-controls
+     [:span.bottom-controls__count (str todo-count
+                                        (if (= todo-count 1) " item" " items")
+                                        " left")]]))
+
 (defn main-view []
   (let [new-todo @(rf/subscribe [:new-todo])
         todos @(rf/subscribe [:todos])]
@@ -40,7 +49,9 @@
      [:div.controls-and-todos
       [top-controls-view {:new-todo new-todo}]
       (when-not (empty? todos)
-        [todos-list-view {:todos todos}])]
+        [todos-list-view {:todos todos}])
+      (when-not (empty? todos)
+        [bottom-controls-view {:todos todos}])]
      [:div.footer
       [:p.footer__row "Double click to edit a todo"]
       [:p.footer__row "Look inspired by TodoMVC,
