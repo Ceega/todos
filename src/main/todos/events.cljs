@@ -27,3 +27,8 @@
  :toggle-todo-completed
  (fn [db [_ idx]]
    (update-in db [:todos idx :completed?] not)))
+
+(rf/reg-event-db
+ :set-filtering-mode
+ (fn [db [_ k]]
+   (assoc db :filtering-mode k)))

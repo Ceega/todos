@@ -10,3 +10,8 @@
  :todos
  (fn [db _]
    (:todos db)))
+
+(rf/reg-sub
+ :filtering-mode
+ (fn [db _]
+   (-> db :filtering-mode (or :all))))

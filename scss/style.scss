@@ -104,6 +104,11 @@ $warning-color: #fa7f7f;
     color: $text-color;
 }
 
+.todo__label--completed {
+    color: lighten($text-color, 40%);
+    text-decoration: line-through;
+}
+
 .todo__delete-button {
     font-size: 1.2rem;
     color: $warning-color;
@@ -123,6 +128,8 @@ $warning-color: #fa7f7f;
 
 .bottom-controls {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px 15px;
     background: #fff;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgba(0, 0, 0, 0.2), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgba(0, 0, 0, 0.2)
@@ -131,6 +138,25 @@ $warning-color: #fa7f7f;
 .bottom-controls__count {
     color: lighten($text-color, 20%);
     font-size: 0.9rem;
+}
+
+.bottom-controls-filtering-buttons {
+}
+
+.bottom-controls-filtering-buttons__button {
+    margin: 0 10px 0 0;
+    padding: 2px 3px;
+    color: lighten($text-color, 20%);
+    font-size: 0.8rem;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.bottom-controls-filtering-buttons__button:hover,
+.bottom-controls-filtering-buttons__button--active {
+    border: 1px solid lighten($warning-color, 15%);
 }
 
 .footer {
