@@ -28,6 +28,10 @@
 
 (defn todo-view [{:keys [key v completed?]}]
   [:li.todo
+   [:input.todo__checkbox
+    {:type "checkbox"
+     :checked completed?
+     :on-change #(rf/dispatch [:toggle-todo-completed key])}]
    [:label.todo__label v]
    [:button.todo__delete-button
     {:on-click #(rf/dispatch [:delete-todo key])}

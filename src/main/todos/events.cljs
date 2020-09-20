@@ -22,3 +22,8 @@
  (fn [db [_ idx]]
    (update db :todos #(vec (concat (subvec % 0 idx)
                                    (subvec % (inc idx)))))))
+
+(rf/reg-event-db
+ :toggle-todo-completed
+ (fn [db [_ idx]]
+   (update-in db [:todos idx :completed?] not)))

@@ -1,6 +1,7 @@
 $text-color: #4d4d4d;
 $text-font-size: 1.4rem;
 $border-color: #e3e3e3;
+$success-color: #28d475;
 $warning-color: #fa7f7f;
 
 * {
@@ -68,9 +69,33 @@ $warning-color: #fa7f7f;
 
 .todo {
     display: flex;
+    align-items: center;
     border-bottom: 1px solid $border-color;
     list-style-type: none;
-    padding: 17px 25px 17px 60px;
+    padding: 17px 25px 17px 10px;
+}
+
+.todo__checkbox {
+    width: 35px;
+    height: 35px;
+    margin: 0 20px 0 0;
+    background: transparent;
+    border-radius: 50%;
+    border: 1px solid $border-color;
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+}
+
+.todo__checkbox:checked {
+    border-color: $success-color;
+}
+
+.todo__checkbox:checked:after {
+    content: "✓";
+    padding: 0 0 0 4px;
+    color: $success-color;
+    font-size: 30px;
 }
 
 .todo__label {
