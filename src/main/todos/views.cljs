@@ -65,7 +65,10 @@
           :class (when (= k filtering-mode)
                    "bottom-controls-filtering-buttons__button--active")
           :on-click #(rf/dispatch [:set-filtering-mode k])}
-         (-> k name str/capitalize)])]]))
+         (-> k name str/capitalize)])]
+     [:button.bottom-controls__clear-button
+      {:on-click #(rf/dispatch [:clear-completed])}
+      "Clear completed"]]))
 
 (defn main-view []
   (let [new-todo @(rf/subscribe [:new-todo])

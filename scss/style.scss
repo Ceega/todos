@@ -144,7 +144,6 @@ $warning-color: #fa7f7f;
 }
 
 .bottom-controls-filtering-buttons__button {
-    margin: 0 10px 0 0;
     padding: 2px 3px;
     color: lighten($text-color, 20%);
     font-size: 0.8rem;
@@ -157,6 +156,21 @@ $warning-color: #fa7f7f;
 .bottom-controls-filtering-buttons__button:hover,
 .bottom-controls-filtering-buttons__button--active {
     border: 1px solid lighten($warning-color, 15%);
+}
+
+.bottom-controls-filtering-buttons__button:not(:last-child) {
+    margin: 0 5px 0 0;
+}
+
+.bottom-controls__clear-button {
+    color: lighten($text-color, 20%);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.bottom-controls__clear-button:hover {
+    text-decoration: underline;
 }
 
 .footer {

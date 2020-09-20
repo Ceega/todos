@@ -32,3 +32,8 @@
  :set-filtering-mode
  (fn [db [_ k]]
    (assoc db :filtering-mode k)))
+
+(rf/reg-event-db
+ :clear-completed
+ (fn [db _]
+   (update db :todos #(vec (remove :completed? %)))))
