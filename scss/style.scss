@@ -72,13 +72,12 @@ $warning-color: #fa7f7f;
     align-items: center;
     border-bottom: 1px solid $border-color;
     list-style-type: none;
-    padding: 17px 25px 17px 10px;
 }
 
 .todo__checkbox {
     width: 35px;
     height: 35px;
-    margin: 0 20px 0 0;
+    margin: 0 20px 0 10px;
     background: transparent;
     border-radius: 50%;
     border: 1px solid $border-color;
@@ -100,6 +99,7 @@ $warning-color: #fa7f7f;
 
 .todo__label {
     flex: 1 0 0px;
+    margin: 16px 0;
     font-size: $text-font-size;
     color: $text-color;
 }
@@ -110,9 +110,10 @@ $warning-color: #fa7f7f;
 }
 
 .todo__delete-button {
+    margin: 0 10px 0 0;
+    display: none;
     font-size: 1.2rem;
     color: $warning-color;
-    display: none;
     border: none;
     background: none;
     cursor: pointer;
@@ -124,6 +125,15 @@ $warning-color: #fa7f7f;
 
 .todo__delete-button:hover {
     color: darken($warning-color, 10%);
+}
+
+.todo__edit-input {
+    flex: 1 0 0px;
+    height: 59px;
+    margin: 0 0 0 60px;
+    font-size: $text-font-size;
+    border: none;
+    outline: none;
 }
 
 .bottom-controls {

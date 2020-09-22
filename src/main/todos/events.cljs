@@ -18,6 +18,16 @@
      (dissoc :new-todo))))
 
 (rf/reg-event-db
+ :set-edited-todo
+ (fn [db [_ k]]
+   (assoc db :edited-todo k)))
+
+(rf/reg-event-db
+ :edit-todo
+ (fn [db [_ idx v]]
+   (assoc-in db [:todos idx :v] v)))
+
+(rf/reg-event-db
  :delete-todo
  (fn [db [_ idx]]
    (update db :todos #(vec (concat (subvec % 0 idx)

@@ -4,7 +4,7 @@
             [todos.events]
             [todos.subs]))
 
-(defn text-input-view [{:keys [class v on-change on-enter placeholder]}]
+(defn text-input-view [{:keys [class v on-change on-enter on-blur placeholder]}]
   [:input
    {:type "text"
     :class class
@@ -15,7 +15,8 @@
                            (= (.-keyCode %) 13)
                            (-> v str/blank? not))
                     (on-enter v))
-    :placeholder placeholder
+    :on-blur (when on-blur on-blur)
+    :placeholder "What needs to be done?"
     :autoFocus true}])
 
 (defn top-controls-view [{:keys [new-todo]}]
@@ -33,22 +34,35 @@
      :checked completed?
      :on-change #(rf/dispatch [:toggle-todo-completed key])}]
    [:label.todo__label
-    {:class (when completed? "todo__label--completed")}
+    {:class (when completed? "todo__label--completed")
+     :on-double-click #(rf/dispatch [:set-edited-todo key])}
     v]
    [:button.todo__delete-button
     {:on-click #(rf/dispatch [:delete-todo key])}
     "✕"]])
+
+(defn edited-todo-view [{:keys [key v]}]
+  [:li.todo
+   [text-input-view
+    {:class "todo__edit-input"
+     :v v
+     :on-change #(rf/dispatch [:edit-todo key %])
+     :on-enter #(rf/dispatch [:set-edited-todo nil])
+     :on-blur #(rf/dispatch [:set-edited-todo nil])}]])
 
 (defn visible-todo? [{:keys [completed?]} filtering-mode]
   (or (= filtering-mode :all)
       (and (= filtering-mode :active) (not completed?))
       (and (= filtering-mode :completed) completed?)))
 
-(defn todos-list-view [{:keys [todos filtering-mode]}]
+(defn todos-list-view [{:keys [todos filtering-mode edited-todo]}]
   [:ul.todos-list
    (for [[idx todo] (map-indexed vector todos)
+         :let [todo (assoc todo :key idx)]
          :when (visible-todo? todo filtering-mode)]
-     [todo-view (assoc todo :key idx)])])
+     (if (= idx edited-todo)
+       [edited-todo-view todo]
+       [todo-view todo]))])
 
 (defn bottom-controls-view [{:keys [todos filtering-mode]}]
   (let [todo-count (->> todos
