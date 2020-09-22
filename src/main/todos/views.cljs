@@ -71,20 +71,17 @@
       "Clear completed"]]))
 
 (defn main-view []
-  (let [new-todo @(rf/subscribe [:new-todo])
-        todos @(rf/subscribe [:todos])
-        filtering-mode @(rf/subscribe [:filtering-mode])
-        todos-props {:todos todos
-                     :filtering-mode filtering-mode}]
+  (let [db @(rf/subscribe [:db])
+        empty-todos? (-> db :todos empty?)]
     [:div.main
      [:div.header
       [:h1.header__text "todos"]]
      [:div.controls-and-todos
-      [top-controls-view {:new-todo new-todo}]
-      (when-not (empty? todos)
-        [todos-list-view todos-props])
-      (when-not (empty? todos)
-        [bottom-controls-view todos-props])]
+      [top-controls-view db]
+      (when-not empty-todos?
+        [todos-list-view db])
+      (when-not empty-todos?
+        [bottom-controls-view db])]
      [:div.footer
       [:p.footer__row "Double click to edit a todo"]
       [:p.footer__row "Look inspired by TodoMVC,
