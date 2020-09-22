@@ -1,6 +1,7 @@
 (ns todos.views
   (:require [clojure.string :as str]
             [re-frame.core :as rf]
+            [reagent.core :as r]
             [todos.events]
             [todos.subs]))
 
@@ -84,7 +85,7 @@
       {:on-click #(rf/dispatch [:clear-completed])}
       "Clear completed"]]))
 
-(defn main-view []
+(defn main-view* []
   (let [db @(rf/subscribe [:db])
         empty-todos? (-> db :todos empty?)]
     [:div.main
@@ -100,3 +101,10 @@
       [:p.footer__row "Double click to edit a todo"]
       [:p.footer__row "Look inspired by TodoMVC,
                        but not part of the official project"]]]))
+
+(defn main-view []
+  (r/create-class
+   {:component-did-mount
+    #(rf/dispatch [:load-local-storage])
+    :reagent-render
+    main-view*}))

@@ -1,5 +1,6 @@
 (ns todos.events
-  (:require [re-frame.core :as rf]))
+  (:require [clojure.edn :as edn]
+            [re-frame.core :as rf]))
 
 (rf/reg-event-db
  :set-new-todo
@@ -47,3 +48,36 @@
  :clear-completed
  (fn [db _]
    (update db :todos #(vec (remove :completed? %)))))
+
+;;
+;; LocalStorage support
+;;
+
+(def db-to-local-storage
+  (rf/->interceptor
+   :id :db-to-local-storage
+   :after (fn [ctx]
+            (assoc-in ctx
+                      [:effects :set-local-storage]
+                      {:k "db"
+                       :v (-> ctx :effects :db)}))))
+
+(rf/reg-global-interceptor db-to-local-storage)
+
+(rf/reg-fx
+ :set-local-storage
+ (fn [{:keys [k v]}]
+   (.setItem (.-localStorage js/window) (str k) (str v))))
+
+(rf/reg-cofx
+ :local-storage
+ (fn [coeffects k]
+   (assoc coeffects
+          :local-storage
+          (.getItem (.-localStorage js/window) k))))
+
+(rf/reg-event-fx
+ :load-local-storage
+ [(rf/inject-cofx :local-storage "db")]
+ (fn [{:keys [db local-storage]}]
+   {:db (edn/read-string local-storage)}))
